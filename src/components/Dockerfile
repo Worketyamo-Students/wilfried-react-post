@@ -8,13 +8,7 @@
  COPY . . 
 
 # Installer les dépendances
- RUN yarn && yarn build 
-
-# Copier l'intégralité du code de l'application dans le conteneur
- COPY . . 
-
-# Créer l'application React pour la production
- RUN npm run build 
+ RUN yarn && yarn run build 
 
 # Utiliser Nginx comme serveur de production
  FROM nginx:alpine as production 
