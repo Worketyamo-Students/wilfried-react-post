@@ -13,47 +13,51 @@
 import  { useState, useEffect } from 'react';
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPost = async () => {
       try {
         const response = await fetch('http://localhost:3000/post');
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des posts');
         }
         const data = await response.json();
-        setPosts(data);
+        setPost(data);
       } catch (err) {
         setError(err.message); 
         setLoading(false); 
       }
     };
 
-    fetchPosts();
-  }, []); 
+    fetchPost();
+  }, [post]);
 
   if (loading) {
     return <p >Chargement...</p>;
   }
+  return (
+    <div className='bg-red-600'>
+      <h1 className='text-[2rem]'>Liste des posts</h1>
+      <ol className='bg-red-800 flex gap-2'>
+        {post.map(post => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ol>
+    </div>
+  ); 
+  
+    
+
 
   if (error) {
     return <p>Erreur : {error}</p>;
   }
 
-  return (
-    <div className='bg-red-600'>
-      <h1 className='text-[2rem]'>Liste des posts</h1>
-      <ul>
-        {posts.map(post => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  
 };
 
 export default PostList;

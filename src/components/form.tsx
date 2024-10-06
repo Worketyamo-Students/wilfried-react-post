@@ -15,6 +15,7 @@ import axios from 'axios';
 
 const Form = () => {
   const [formData, setFormData] = useState({
+    author:'',
     title: '',
     content: '',
   });
@@ -40,6 +41,17 @@ const Form = () => {
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-6 justify-center items-center  bg-slate-700'>
       <div>
+        <label htmlFor="author">Author :</label>
+        <input
+          type="text"
+          id="author"
+          name="author"
+          value={formData.author}
+          onChange={handleChange}
+          className='rounded-md w-[20rem] px-4 bg-slate-400 border-solid border '
+        />
+      </div>
+      <div>
         <label htmlFor="title">Titre :</label>
         <input
           type="text"
@@ -47,7 +59,7 @@ const Form = () => {
           name="title"
           value={formData.title}
           onChange={handleChange}
-          className='rounded-md w-[10rem] bg-slate-400 border-solid border '
+          className='rounded-md w-[10rem] px-4 bg-slate-400 border-solid border '
         />
       </div>
       <div>
